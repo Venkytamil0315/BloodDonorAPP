@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Blood Donor Finder</title>
+<meta name="theme-color" content="#C8102E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app" id="app">
+
+<!-- Welcome -->
+<section class="scr on red center" id="welcome">
+<div class="cap"></div>
+<svg class="drop" viewBox="0 0 64 80"><path d="M32 4C32 4 6 34 6 52a26 26 0 0052 0C58 34 32 4 32 4z" fill="#fff"/><path d="M32 62s-14-9-14-18a8 8 0 0114-5 8 8 0 0114 5c0 9-14 18-14 18z" fill="#C8102E"/></svg>
+<h1>Blood Donor Finder</h1>
+<p style="font-family:var(--head);font-size:17px;margin-bottom:8px">Find a donor. Give hope.</p>
+<p>Connect quickly with nearby blood donors during emergencies.</p>
+<div class="stack"><button class="btn b-w" data-go="signup">Get started</button><button class="btn b-o" data-go="login">Log in</button></div>
+<p style="margin-top:20px;font-size:13px;opacity:.85"><u data-go="adminlogin" style="cursor:pointer">Admin sign in</u></p>
+</section>
+
+<!-- Home -->
+<section class="scr" id="home">
+<div class="hello red"><small>Hello, <span class="uname">there</span></small><h2>Let’s help someone in need today</h2><small>📍 Chennai, Tamil Nadu</small></div>
+<div class="pad" style="padding-top:20px">
+<div class="stats"><div><b id="sD">5</b><span>Donors nearby</span></div><div><b id="sR">1</b><span>My requests</span></div><div><b>3</b><span>Donations</span></div></div>
+<button class="card red" data-go="request"><div class="ic">🚨</div><div><b>Emergency? Need blood urgently?</b><span>Raise a blood request</span></div></button>
+<button class="card red" data-go="search"><div class="ic">🔍</div><div><b>Search a donor</b><span>Filter by blood group and distance</span></div></button>
+<button class="card l" data-go="register"><div class="ic">🩸</div><div><b>Register as a donor</b><span>Be someone’s lifeline</span></div></button>
+</div>
+</section>
+
+<!-- Search -->
+<section class="scr" id="search">
+<div class="top"><button class="back" data-back>←</button><h2>Search donor</h2></div>
+<div class="pad">
+<label>Blood group</label><select id="sg"><option value="">Any blood group</option></select>
+<label>Location</label><input id="sl" value="Chennai, Tamil Nadu">
+<label>Distance</label><select id="sd"><option value="2">Within 2 km</option><option value="5" selected>Within 5 km</option><option value="10">Within 10 km</option></select>
+<button class="btn b-r" id="doSearch" style="margin-top:26px">Search</button>
+<p class="note">Every drop counts</p>
+</div>
+</section>
+
+<!-- Nearby -->
+<section class="scr" id="nearby">
+<div class="top red"><button class="back" data-back>←</button><div><h2>Nearby donors</h2><small id="nSub" style="opacity:.85;font-size:12.5px"></small></div></div>
+<div class="pad" style="padding-top:16px" id="nList"></div>
+</section>
+
+<!-- Profile of donor -->
+<section class="scr" id="donor">
+<div class="top red" style="padding-bottom:50px"><button class="back" data-back>←</button></div>
+<div class="hero" style="margin-top:-40px" id="dBody"></div>
+</section>
+
+<!-- Register -->
+<section class="scr" id="register">
+<div class="top"><button class="back" data-back>←</button><h2>Register as a donor</h2></div>
+<div class="pad">
+<label>Full name</label><input id="rn" placeholder="Your name">
+<div class="row"><div><label>Age</label><input id="ra" type="number" min="18" max="65" placeholder="18+"></div><div><label>Gender</label><select id="rg"><option>Male</option><option>Female</option><option>Other</option></select></div></div>
+<label>Blood group</label><select id="rb"></select>
+<label>Location</label><input id="rl" placeholder="City or area">
+<label>Mobile number</label><input id="rm" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit number">
+<button class="btn b-r" id="doReg" style="margin-top:28px">Submit</button>
+</div>
+</section>
+
+<!-- Registered -->
+<section class="scr center" id="regok">
+<div class="tick" style="border-color:var(--red);color:var(--red)">✓</div>
+<h1 style="color:var(--red);font-size:26px;margin-bottom:8px">Registration successful</h1>
+<p style="color:var(--mut)">You’re now a listed donor. We’ll notify you when someone nearby needs your blood group.</p>
+<div class="stack"><button class="btn b-g" data-go="home">Go back</button></div>
+</section>
+
+<!-- Request form -->
+<section class="scr" id="request">
+<div class="top"><button class="back" data-back>←</button><h2>Request blood</h2></div>
+<div class="pad">
+<label>Patient name</label><input id="qp" placeholder="Patient’s name">
+<label>Hospital</label><input id="qh" placeholder="Hospital name">
+<div class="row"><div><label>Blood group</label><select id="qb"></select></div><div><label>Units</label><input id="qu" type="number" min="1" max="10" value="1"></div></div>
+<label>Reason</label><input id="qr" placeholder="e.g. Heart surgery">
+<button class="btn b-r" id="doReq" style="margin-top:28px">Send request</button>
+</div>
+</section>
+
+<!-- My requests -->
+<section class="scr" id="requests">
+<div class="top red"><h2>My requests</h2></div>
+<div class="pad" style="padding-top:16px" id="rList"></div>
+</section>
+
+<!-- Request detail -->
+<section class="scr" id="rdetail">
+<div class="top red"><button class="back" data-back>←</button><h2>Request details</h2></div>
+<div class="pad" style="padding-top:18px" id="rBody"></div>
+</section>
+
+<!-- Donated -->
+<section class="scr red center" id="thanks">
+<div class="cap"></div>
+<div class="tick">♥</div>
+<h2 style="font-size:22px;margin-bottom:6px">Successfully donated</h2>
+<h1 style="font-size:28px;margin-bottom:10px">Together we save lives</h1>
+<p>Thank you for being a part of the change.</p>
+<div class="stack"><button class="btn b-w" data-toast="Thanks for your feedback">Rate this app</button><button class="btn b-o" data-go="home">Back to home</button></div>
+</section>
+
+<!-- Notifications -->
+<section class="scr" id="notif">
+<div class="top red"><button class="back" data-back>←</button><h2>Notifications</h2></div>
+<div id="nfList"></div>
+</section>
+
+<!-- Profile -->
+<section class="scr" id="profile">
+<div class="top red" style="padding-bottom:22px"><div class="av" id="pAv" style="width:56px;height:56px;background:#fff">P</div><div><h2 style="font-size:19px" id="pName">Your name</h2><small style="opacity:.85" id="pMail"></small></div></div>
+<div class="pad" style="padding-top:12px">
+<button class="mn" data-go="register">Edit profile <span>›</span></button>
+<button class="mn" data-go="requests">My requests <span>›</span></button>
+<button class="mn" data-go="notif">Notifications <span>›</span></button>
+<button class="mn" data-toast="3 donations · last on 12 Aug 2026">Donation history <span>›</span></button>
+<button class="mn" data-toast="Settings coming soon">Settings <span>›</span></button>
+<button class="mn" data-toast="support@blooddonorfinder.app">Help &amp; support <span>›</span></button>
+<button class="btn b-r" data-logout style="margin-top:28px">Log out</button>
+</div>
+</section>
+
+<!-- Sign up -->
+<section class="scr" id="signup">
+<div class="top red"><button class="back" data-back>←</button><h2>Create account</h2></div>
+<div class="pad"><h2 style="font-size:24px;margin-top:14px">Join Blood Donor Finder</h2><p class="sub">Sign up with your email to find donors or save a life.</p>
+<label>Full name</label><input id="sn" autocomplete="name" placeholder="Your name">
+<label>Email</label><input id="se" type="email" autocomplete="email" placeholder="you@example.com">
+<label>Password</label><input id="sp" type="password" autocomplete="new-password" placeholder="At least 6 characters">
+<label>Confirm password</label><input id="sc" type="password" autocomplete="new-password" placeholder="Re-enter password">
+<p class="err" id="serr"></p>
+<button class="btn b-r" id="doSign" style="margin-top:14px">Sign up</button>
+<p class="alt">Already have an account? <u data-go="login">Log in</u></p></div>
+</section>
+
+<!-- Log in -->
+<section class="scr" id="login">
+<div class="top red"><button class="back" data-back>←</button><h2>Log in</h2></div>
+<div class="pad"><h2 style="font-size:24px;margin-top:14px">Welcome back</h2><p class="sub">Log in to find or help a donor.</p>
+<label>Email</label><input id="le" type="email" autocomplete="email" placeholder="you@example.com">
+<label>Password</label><input id="lp" type="password" autocomplete="current-password" placeholder="Your password">
+<p class="err" id="lerr"></p>
+<button class="btn b-r" id="doLogin" style="margin-top:14px">Log in</button>
+<p class="alt">New here? <u data-go="signup">Create an account</u></p></div>
+</section>
+
+<!-- Admin login -->
+<section class="scr" id="adminlogin">
+<div class="top red"><button class="back" data-back>←</button><h2>Admin sign in</h2></div>
+<div class="pad"><h2 style="font-size:24px;margin-top:14px">Admin dashboard</h2><p class="sub">See how many people have signed up and logged in.</p>
+<label>Admin email</label><input id="ae" type="email" placeholder="admin email">
+<label>Password</label><input id="ap" type="password" placeholder="Admin password">
+<p class="err" id="aerr"></p>
+<button class="btn b-r" id="doAdmin" style="margin-top:14px">Open dashboard</button></div>
+</section>
+
+<!-- Admin dashboard -->
+<section class="scr" id="admin">
+<div class="top red"><div style="flex:1"><h2>Admin dashboard</h2><small style="opacity:.85;font-size:12.5px">Blood Donor Finder</small></div><button class="back" data-logout style="width:auto;border-radius:18px;padding:0 14px;font-size:13px">Log out</button></div>
+<div class="pad" style="padding-top:18px">
+<div class="kpi" id="kpi"></div>
+<h3 style="font-size:17px">Logins, last 7 days</h3><div class="bars" id="bars"></div>
+<h3 style="font-size:17px;margin-bottom:12px">Users</h3><div id="uList"></div>
+<p class="sub" style="font-size:12.5px;margin-top:8px">Counts are read from this device’s browser storage. A shared total across all phones needs a server database.</p>
+</div>
+</section>
+
+<nav class="tabs" id="tabs" hidden>
+<button data-go="home" data-t="home"><i>🏠</i>Home</button>
+<button data-go="requests" data-t="requests"><i>🩸</i>Requests</button>
+<button data-go="profile" data-t="profile"><i>👤</i>Profile</button>
+</nav>
+<div class="toast" id="toast"></div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
